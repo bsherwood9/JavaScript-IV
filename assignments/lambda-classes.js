@@ -24,9 +24,9 @@ class Instructor extends Person {
     console.log(`${Student.name} receives a perfect score on ${subject}`);
   }
   gradeStudent(Student) {
-    let sum = Student.grade + Math.floor(Math.random() * 200 - 100);
-    while (sum > 100) {
-      Student.grade = Student.grade + Math.floor(Math.random() * (100 - 1) + 1);
+    Student.grade = Student.grade + Math.floor(Math.random() * 200 - 100);
+    while (Student.grade > 100 || Student.grade < 0) {
+      Student.grade = Student.grade + Math.floor(Math.random() * 200 - 100);
     }
   }
 }
@@ -49,6 +49,17 @@ class Student extends Person {
   }
   sprintChallenge(subject) {
     console.log(`${this.name} has begun sprint challenge on ${subject}`);
+  }
+  graduate() {
+    while (this.grade < 70 || this.grade > 100) {
+      console.log(`Please try again! Your grade is only ${this.grade}.`);
+      this.grade = this.grade + Math.floor(Math.random() * 200 - 100);
+    }
+    if (this.grade >= 70 || this.grade <= 100) {
+      console.log(
+        `Congrats ${this.name} you graduated with a score of ${this.grade}!`
+      );
+    }
   }
 }
 
@@ -135,7 +146,7 @@ console.log(fred.favLanguage);
 console.log(barb);
 fred.speak();
 fred.gradeStudent(sandy);
-console.log(sandy.grade);
+barb.gradeStudent(alan);
 //Student Checks
 sandy.listsSubjects();
 alan.listsSubjects();
@@ -145,7 +156,10 @@ alan.sprintChallenge("React");
 console.log(alan);
 console.log(sandy);
 sandy.speak();
-
+console.log("Sandy's Grade", sandy.grade);
+sandy.graduate();
+console.log("Alan's Grade", alan.grade);
+alan.graduate();
 //PM Checks
 console.log(amy);
 console.log(charles);
