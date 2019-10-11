@@ -20,14 +20,13 @@ class Instructor extends Person {
   demo(subject) {
     console.log(`Today we are learning about ${subject}`);
   }
-  grade(Student, subject) {
-    console.log(`${Student.name} receives a perfect score on ${subject}`);
+  grade(student, subject) {
+    console.log(`${student.name} receives a perfect score on ${subject}`);
   }
-  gradeStudent(Student) {
-    Student.grade = Student.grade + Math.floor(Math.random() * 200 - 100);
-    while (Student.grade > 100 || Student.grade < 0) {
-      Student.grade = Student.grade + Math.floor(Math.random() * 200 - 100);
-    }
+  gradeStudent(student) {
+    do {
+      student.grade = getAGrade(student.grade);
+    } while (student.grade > 100 || student.grade < 0);
   }
 }
 
@@ -53,13 +52,12 @@ class Student extends Person {
   graduate() {
     while (this.grade < 70 || this.grade > 100) {
       console.log(`Please try again! Your grade is only ${this.grade}.`);
-      this.grade = this.grade + Math.floor(Math.random() * 200 - 100);
+      this.grade = getAGrade(this.grade);
     }
-    if (this.grade >= 70 || this.grade <= 100) {
-      console.log(
-        `Congrats ${this.name} you graduated with a score of ${this.grade}!`
-      );
-    }
+    console.log(
+      `Congrats ${this.name} you graduated with a score of ${this.grade}!`
+    );
+    // }
   }
 }
 
@@ -138,6 +136,36 @@ const charles = new ProjectManager({
   gradClassName: "CS3",
   favInstructor: "Joanne Benedetto"
 });
+
+// function getAGrade(student) {
+//   let score = randPosRange(0, 100);
+//   let addSub = getRandBool();
+//   if (addSub) {
+//     student.grade = Student.grade + score;
+//   } else {
+//     student.grade = Student.grade - score;
+//   }
+// }
+
+function getAGrade(grade) {
+  let score = randPosRange(0, 100);
+  let addSub = getRandBool();
+  if (addSub) {
+    return grade + score;
+  }
+  return grade - score;
+}
+
+function randPosRange(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+/*
+ *  @return boolean
+ */
+function getRandBool() {
+  return Math.random() >= 0.5;
+}
 
 // Instructor Checks
 barb.demo("Security");
