@@ -23,6 +23,12 @@ class Instructor extends Person {
   grade(Student, subject) {
     console.log(`${Student.name} receives a perfect score on ${subject}`);
   }
+  gradeStudent(Student) {
+    let sum = Student.grade + Math.floor(Math.random() * 200 - 100);
+    while (sum > 100) {
+      Student.grade = Student.grade + Math.floor(Math.random() * (100 - 1) + 1);
+    }
+  }
 }
 
 class Student extends Person {
@@ -31,6 +37,7 @@ class Student extends Person {
     this.previousBackground = attribs.previousBackground;
     this.className = attribs.className;
     this.favSubjects = attribs.favSubjects;
+    this.grade = attribs.grade;
   }
   listsSubjects() {
     this.favSubjects.forEach(element => {
@@ -85,7 +92,8 @@ const alan = new Student({
   age: 26,
   previousBackground: "streamer",
   className: "WEB 35",
-  favSubjects: ["CSS", "HTML", "REACT"]
+  favSubjects: ["CSS", "HTML", "REACT"],
+  grade: 85
 });
 
 const sandy = new Student({
@@ -94,7 +102,8 @@ const sandy = new Student({
   age: 35,
   previousBackground: "Doctor",
   className: "WEBPT24",
-  favSubjects: ["REDUX", "Python", "REACT"]
+  favSubjects: ["REDUX", "Python", "REACT"],
+  grade: 92
 });
 
 const amy = new ProjectManager({
@@ -125,6 +134,8 @@ barb.grade(alan, "CyberWarfare");
 console.log(fred.favLanguage);
 console.log(barb);
 fred.speak();
+fred.gradeStudent(sandy);
+console.log(sandy.grade);
 //Student Checks
 sandy.listsSubjects();
 alan.listsSubjects();
